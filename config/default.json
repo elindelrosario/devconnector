@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://elindelrosario:admin@tutorialscluster-2kj5w.mongodb.net/devconnector?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://elindelrosario:admin@tutorialscluster-2kj5w.mongodb.net/devconnector?retryWrites=true&w=majority",
+  "jwtSecretKey": "D3vConn3ctorS3cr3tK3y"
 }
