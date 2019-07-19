@@ -20,6 +20,7 @@ router.get("/me", auth, async (req, res) => {
     if (!profile) {
       return res.status(404).json({ msg: "User profile not found" });
     }
+
     res.json(profile);
   } catch (error) {
     console.error(error.message);
@@ -101,6 +102,7 @@ router.post(
       // Create
       profile = new Profile(profileFields);
       await profile.save();
+
       res.json(profile);
     } catch (error) {
       console.error(error.message);
@@ -294,8 +296,10 @@ router.put(
 
     try {
       const profile = await Profile.findOne({ user: req.user.id });
+
       profile.education.unshift(newEdu);
       await profile.save();
+
       res.json(profile);
     } catch (error) {
       console.error(error.message);
