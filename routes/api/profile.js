@@ -18,9 +18,7 @@ router.get("/me", auth, async (req, res) => {
       ["name", "avatar "]
     );
     if (!profile) {
-      return res
-        .status(400)
-        .json({ msg: "There is no profile for this user." });
+      return res.status(404).json({ msg: "User profile not found" });
     }
     res.json(profile);
   } catch (error) {
@@ -134,7 +132,7 @@ router.get("/user/:user_id", async (req, res) => {
     }).populate("user", ["name", "avatar"]);
 
     if (!profile) {
-      return res.status(400).json({ msg: "Profile not found" });
+      return res.status(404).json({ msg: "Profile not found" });
     }
 
     res.json(profile);
@@ -142,7 +140,7 @@ router.get("/user/:user_id", async (req, res) => {
     console.error(error.message);
 
     if (error.kind === "ObjectId") {
-      return res.status(400).json({ msg: "Profile not found" });
+      return res.status(404).json({ msg: "Profile not found" });
     }
 
     res.status(500).send("Server Error");
@@ -345,7 +343,7 @@ router.get("/github/:username", (req, res) => {
     request(options, (error, response, body) => {
       if (error) console.error(error);
       if (response.statusCode !== 200) {
-        return res.status(400).json({ msg: "No Github public repos found" });
+        return res.status(404).json({ msg: "No Github public repos found" });
       }
       res.send(JSON.parse(body));
     });
