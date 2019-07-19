@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://elindelrosario:admin@tutorialscluster-2kj5w.mongodb.net/devconnector?retryWrites=true&w=majority",
-  "jwtSecretKey": "D3vConn3ctorS3cr3tK3y"
+  "jwtSecretKey": "D3vConn3ctorS3cr3tK3y",
+  "githubClientId": "f3ef943d92411fb48944",
+  "githubSecret": "f2507c4a6ddd24864126ca3eb47f37ebe4aef419"
 }
