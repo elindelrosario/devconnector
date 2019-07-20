@@ -15,7 +15,7 @@ router.post(
   [
     auth,
     [
-      check("text", "Text is required")
+      check("text", "Text is required.")
         .not()
         .isEmpty()
     ]
@@ -68,7 +68,7 @@ router.get("/:post_id", auth, async (req, res) => {
     const post = await Post.findById(req.params.post_id);
 
     if (!post) {
-      return res.status(404).json({ msg: "Post not found" });
+      return res.status(404).json({ msg: "Post not found." });
     }
 
     res.json(post);
@@ -76,7 +76,7 @@ router.get("/:post_id", auth, async (req, res) => {
     console.error(error.message);
 
     if (error.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Post not found" });
+      return res.status(404).json({ msg: "Post not found." });
     }
 
     res.status(500).send("Server Error");
@@ -90,22 +90,22 @@ router.delete("/:post_id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.post_id);
     if (!post) {
-      return res.status(404).json({ msg: "Post not found" });
+      return res.status(404).json({ msg: "Post not found." });
     }
 
     // Check user
     if (post.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: "User not authorized" });
+      return res.status(401).json({ msg: "User not authorized." });
     }
 
     await post.remove();
 
-    res.json({ msg: "Post deleted" });
+    res.json({ msg: "Post deleted." });
   } catch (error) {
     console.error(error.message);
 
     if (error.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Post not found" });
+      return res.status(404).json({ msg: "Post not found." });
     }
 
     res.status(500).send("Server Error");
@@ -123,7 +123,7 @@ router.put("/like/:post_id", auth, async (req, res) => {
     if (
       post.likes.filter(like => like.user.toString() === req.user.id).length > 0
     ) {
-      return res.status(400).json({ msg: "Post has already been liked" });
+      return res.status(400).json({ msg: "Post has already been liked." });
     }
 
     post.likes.unshift({ user: req.user.id });
@@ -148,7 +148,7 @@ router.put("/unlike/:post_id", auth, async (req, res) => {
       post.likes.filter(like => like.user.toString() === req.user.id).length ===
       0
     ) {
-      return res.status(400).json({ msg: "Post has not yet been liked" });
+      return res.status(400).json({ msg: "Post has not yet been liked." });
     }
 
     // Get remove index
@@ -174,7 +174,7 @@ router.post(
   [
     auth,
     [
-      check("text", "Text is required")
+      check("text", "Text is required.")
         .not()
         .isEmpty()
     ]
@@ -221,12 +221,12 @@ router.delete("/comment/:post_id/:comment_id", auth, async (req, res) => {
 
     // Ensure comment exists
     if (!comment) {
-      return res.status(400).json({ msg: "Comment not found" });
+      return res.status(400).json({ msg: "Comment not found." });
     }
 
     // Check user
     if (comment.user.toString() !== req.user.id) {
-      return res.status(400).json({ msg: "User not authorized" });
+      return res.status(400).json({ msg: "User not authorized." });
     }
 
     // Get remove index

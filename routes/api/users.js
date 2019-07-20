@@ -13,13 +13,13 @@ const User = require("../../models/User");
 router.post(
   "/",
   [
-    check("name", "Name is required")
+    check("name", "Name is required.")
       .not()
       .isEmpty(),
-    check("email", "Please provide a valid email").isEmail(),
+    check("email", "Please provide a valid email.").isEmail(),
     check(
       "password",
-      "Please provide a password with at least 6 characters"
+      "Please provide a password with at least 6 characters."
     ).isLength({
       min: 6
     })
@@ -37,7 +37,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "User already exists" }] });
+          .json({ errors: [{ msg: "User already exists." }] });
       }
 
       // Get user gravatar

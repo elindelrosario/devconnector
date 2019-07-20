@@ -19,7 +19,7 @@ router.get("/me", auth, async (req, res) => {
       ["name", "avatar "]
     );
     if (!profile) {
-      return res.status(404).json({ msg: "User profile not found" });
+      return res.status(404).json({ msg: "User profile not found." });
     }
 
     res.json(profile);
@@ -37,10 +37,10 @@ router.post(
   [
     auth,
     [
-      check("status", "Status is required")
+      check("status", "Status is required.")
         .not()
         .isEmpty(),
-      check("skills", "Skills is required")
+      check("skills", "Skills is required.")
         .not()
         .isEmpty()
     ]
@@ -135,7 +135,7 @@ router.get("/user/:user_id", async (req, res) => {
     }).populate("user", ["name", "avatar"]);
 
     if (!profile) {
-      return res.status(404).json({ msg: "Profile not found" });
+      return res.status(404).json({ msg: "Profile not found." });
     }
 
     res.json(profile);
@@ -143,7 +143,7 @@ router.get("/user/:user_id", async (req, res) => {
     console.error(error.message);
 
     if (error.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Profile not found" });
+      return res.status(404).json({ msg: "Profile not found." });
     }
 
     res.status(500).send("Server Error");
@@ -179,13 +179,13 @@ router.put(
   [
     auth,
     [
-      check("title", "Title is required")
+      check("title", "Title is required.")
         .not()
         .isEmpty(),
-      check("company", "Company is required")
+      check("company", "Company is required.")
         .not()
         .isEmpty(),
-      check("from", "From date is required")
+      check("from", "From date is required.")
         .not()
         .isEmpty()
     ]
@@ -258,13 +258,13 @@ router.put(
   [
     auth,
     [
-      check("school", "School is required")
+      check("school", "School is required.")
         .not()
         .isEmpty(),
-      check("degree", "Degree is required")
+      check("degree", "Degree is required.")
         .not()
         .isEmpty(),
-      check("from", "From date is required")
+      check("from", "From date is required.")
         .not()
         .isEmpty()
     ]
@@ -348,7 +348,7 @@ router.get("/github/:username", (req, res) => {
     request(options, (error, response, body) => {
       if (error) console.error(error);
       if (response.statusCode !== 200) {
-        return res.status(404).json({ msg: "No Github public repos found" });
+        return res.status(404).json({ msg: "No Github public repos found." });
       }
       res.send(JSON.parse(body));
     });
