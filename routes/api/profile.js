@@ -36,7 +36,7 @@ router.post(
   [
     auth,
     [
-      check("title", "Title is required")
+      check("status", "Status is required")
         .not()
         .isEmpty(),
       check("skills", "Skills is required")
@@ -55,7 +55,7 @@ router.post(
       website,
       location,
       bio,
-      title,
+      status,
       githubusername,
       skills,
       facebook,
@@ -72,7 +72,7 @@ router.post(
     if (website) profileFields.website = website;
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
-    if (title) profileFields.title = title;
+    if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     if (skills) {
       profileFields.skills = skills.split(",").map(skill => skill.trim());
