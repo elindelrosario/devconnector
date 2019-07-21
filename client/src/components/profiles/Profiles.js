@@ -11,10 +11,6 @@ const Profiles = ({ getProfiles, profile: { profiles, loading }, auth }) => {
     getProfiles();
   }, [getProfiles]);
 
-  if (!auth.isAuthenticated && !auth.loading) {
-    return <Redirect to="/login" />;
-  }
-
   return (
     <Fragment>
       {loading ? (

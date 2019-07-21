@@ -20,10 +20,6 @@ const Profile = ({
     getProfileById(match.params.user_id);
   }, [getProfileById, match.params.user_id]);
 
-  if (!auth.isAuthenticated && !auth.loading) {
-    return <Redirect to="/login" />;
-  }
-
   return (
     <Fragment>
       {profile === null || loading ? (
