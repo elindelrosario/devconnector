@@ -37,7 +37,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
-  profiles: PropTypes.object.isRequired
+  profile: PropTypes.object
 };
 
 const mapStateToProps = state => ({

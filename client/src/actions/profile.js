@@ -5,7 +5,8 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
   GET_PROFILES,
-  GET_REPOS
+  GET_REPOS,
+  NO_REPOS
 } from "./types";
 import { setAlert } from "./alert";
 
@@ -69,10 +70,14 @@ export const getGithubRepos = githubusername => async dispatch => {
   try {
     const res = await axios.get(`/api/profile/github/${githubusername}`);
 
-    dispatch({
-      type: GET_REPOS,
-      payload: res.data
-    });
+    if (res.data[0].name === "undefined.github.io") {
+      dispatch({ type: NO_REPOS });
+    } else {
+      dispatch({
+        type: GET_REPOS,
+        payload: res.data
+      });
+    }
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,

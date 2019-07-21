@@ -3,7 +3,8 @@ import {
   PROFILE_ERROR,
   CLEAR_PROFILE,
   GET_PROFILES,
-  GET_REPOS
+  GET_REPOS,
+  NO_REPOS
 } from "../actions/types";
 
 const initialState = {
@@ -51,6 +52,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         repos: payload,
+        loading: false,
+        error: null
+      };
+    case NO_REPOS:
+      return {
+        ...state,
+        repos: [],
         loading: false,
         error: null
       };
