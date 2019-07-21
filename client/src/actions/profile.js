@@ -3,7 +3,9 @@ import {
   GET_PROFILE,
   PROFILE_ERROR,
   CLEAR_PROFILE,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
+  GET_PROFILES,
+  GET_REPOS
 } from "./types";
 import { setAlert } from "./alert";
 
@@ -14,6 +16,59 @@ export const getCurrentProfile = () => async dispatch => {
 
     dispatch({
       type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+// Get all profiles
+export const getProfiles = () => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
+
+  try {
+    const res = await axios.get("/api/profile");
+
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+// Get profile by ID
+export const getProfileById = userId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/profile/user/${userId}`);
+
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+// Get Github repos
+export const getGithubRepos = githubusername => async dispatch => {
+  try {
+    const res = await axios.get(`/api/profile/github/${githubusername}`);
+
+    dispatch({
+      type: GET_REPOS,
       payload: res.data
     });
   } catch (error) {
@@ -172,13 +227,9 @@ export const deleteAccount = () => async dispatch => {
     try {
       await axios.delete(`/api/profile`);
 
-      dispatch({
-        type: CLEAR_PROFILE
-      });
+      dispatch({ type: CLEAR_PROFILE });
 
-      dispatch({
-        type: ACCOUNT_DELETED
-      });
+      dispatch({ type: ACCOUNT_DELETED });
 
       dispatch(setAlert("Your account has been deleted permanently."));
     } catch (error) {
