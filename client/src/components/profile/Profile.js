@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
@@ -19,6 +19,11 @@ const Profile = ({
   useEffect(() => {
     getProfileById(match.params.user_id);
   }, [getProfileById, match.params.user_id]);
+
+  if (!auth.isAuthenticated && !auth.loading) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <Fragment>
       {profile === null || loading ? (

@@ -1,14 +1,20 @@
 import React, { Fragment, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { getProfiles } from "../../actions/profile";
 import ProfileItem from "./ProfileItem";
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({ getProfiles, profile: { profiles, loading }, auth }) => {
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
+
+  if (!auth.isAuthenticated && !auth.loading) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <Fragment>
       {loading ? (
@@ -41,7 +47,8 @@ Profiles.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(
